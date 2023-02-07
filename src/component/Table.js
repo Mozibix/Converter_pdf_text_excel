@@ -3,7 +3,6 @@ import React, { useRef } from "react";
 import "jspdf-autotable";
 import studentData from "../userdata";
 import { useDownloadExcel } from "react-export-table-to-excel";
-import html2canvas from "html2canvas";
 
 const Tables = () => {
   const tableRef = useRef(null);
@@ -35,23 +34,19 @@ const Tables = () => {
   };
 
   const downloadText = () => {
-    const textP = document.querySelector("#text-p");
-
-    // console.log(text.innerText);
     const doc = new jsPDF("p", "in", "a4");
-    let textlines = doc
+    let textLines = doc
       .setFontSize(12)
       .splitTextToSize(inputRef.current.innerText, 7.5);
 
-    let verticalOffset = 0.5;
-    doc.text(0.5, (verticalOffset = 12 / 72), textlines);
-    verticalOffset += ((textlines.length + 0.5) * 12) / 72;
+    doc.text(0.5, 0.5, textLines);
+
     doc.save("text.pdf");
   };
   return (
     <>
       <div ref={inputRef}>
-        <p id="text-p">
+        <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus odio
           porro magnam ut esse odit. Sequi obcaecati, laborum sed esse tempora
           dicta, atque ullam necessitatibus velit voluptas quaerat officiis
